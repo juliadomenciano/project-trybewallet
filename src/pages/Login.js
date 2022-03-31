@@ -31,7 +31,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password, buttonValidation } = this.state;
+    const { email, buttonValidation } = this.state;
     const { login } = this.props;
     return (
       <section>
