@@ -45,7 +45,8 @@ class Expenses extends React.Component {
                 <td>
                   {
                     (
-                      parseFloat(item.value) * parseFloat(item.exchangeRates[item.currency].ask)).toFixed(2)
+                      parseFloat(item.value)
+                      * parseFloat(item.exchangeRates[item.currency].ask)).toFixed(2)
                   }
 
                 </td>
