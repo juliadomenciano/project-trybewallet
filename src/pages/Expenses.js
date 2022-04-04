@@ -1,10 +1,19 @@
-/* import PropTypes from 'prop-types'; */
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
 class Expenses extends React.Component {
+/*   constructor() {
+    super();
+  }
+
+  handleMath = (item) => {
+    const { ask } = item.exchangeRates[item.currency];
+    return ask.toFixed(2);
+  } */
+
   render() {
-    /*     const { expenses } = this.props; */
+    const { expenses } = this.props;
     return (
       <section>
 
@@ -20,14 +29,31 @@ class Expenses extends React.Component {
             <th>Moeda de conversão</th>
             <th>Editar/Excluir</th>
           </tr>
-          {/*  <tr>
-            <td>Emil</td>
+          {
+            expenses.map((item) => (
+              <tr key={ item.id }>
+                <td>{item.description}</td>
+                <td>{item.tag}</td>
+                <td>{item.method}</td>
+                <td>{parseFloat(item.value).toFixed(2)}</td>
+                <td>{item.exchangeRates[item.currency].name}</td>
+                <td>
+                  {
+                    parseFloat(item.exchangeRates[item.currency].ask).toFixed(2)
+                  }
+                </td>
+                <td>
+                  {
+                    (
+                      parseFloat(item.value) * parseFloat(item.exchangeRates[item.currency].ask)).toFixed(2)
+                  }
 
-          </tr>
-          <tr>
-            <td>16</td>
+                </td>
+                <td>Real</td>
 
-          </tr> */}
+              </tr>
+            ))
+          }
         </table>
 
       </section>
@@ -36,14 +62,13 @@ class Expenses extends React.Component {
   }
 }
 
-/* const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 
-}); */
+});
 
-/* Expenses.propTypes = {
-  login: PropTypes.func.isRequired,
-}; */
+Expenses.propTypes = {
+  expenses: PropTypes.arrayOf(PropTypes.any).isRequired,
+};
 
-/* export default connect(mapStateToProps)(Expenses); */
-export default Expenses;
+export default connect(mapStateToProps)(Expenses);
