@@ -1,5 +1,7 @@
 import {
-  RECEIVE_API_FAILURE, RECEIVE_API_SUCCESS, REQUEST_API, RECEIVE_EXCHANGE_SUCCESS,
+  RECEIVE_API_FAILURE, RECEIVE_API_SUCCESS,
+  REQUEST_API, RECEIVE_EXCHANGE_SUCCESS,
+  DELETE_EXPENSE, UPDATE_TOTAL, EDIT_EXPENSE,
 } from '../actions';
 
 const initialState = {
@@ -7,6 +9,8 @@ const initialState = {
   isFetching: false,
   error: '',
   expenses: [],
+  total: 0,
+  editingInfo: [],
 };
 
 const wallet = (state = initialState, action) => {
@@ -34,6 +38,22 @@ const wallet = (state = initialState, action) => {
       isFetching: false,
       error: action.error,
     };
+  case UPDATE_TOTAL:
+    return {
+      ...state,
+      total: action.total,
+    };
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: action.expensesLeft,
+    };
+  case EDIT_EXPENSE:
+    return {
+      ...state,
+      editingInfo: [action.id, action.ask],
+    };
+
   default:
     return state;
   }
