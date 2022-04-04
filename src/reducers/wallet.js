@@ -1,11 +1,12 @@
 import {
-  RECEIVE_API_FAILURE, RECEIVE_API_SUCCESS, REQUEST_API,
+  RECEIVE_API_FAILURE, RECEIVE_API_SUCCESS, REQUEST_API, RECEIVE_EXCHANGE_SUCCESS,
 } from '../actions';
 
 const initialState = {
   currencies: [],
   isFetching: false,
   error: '',
+  expenses: [],
 };
 
 const wallet = (state = initialState, action) => {
@@ -19,6 +20,12 @@ const wallet = (state = initialState, action) => {
     return {
       ...state,
       currencies: action.currencies,
+      isFetching: false,
+    };
+  case RECEIVE_EXCHANGE_SUCCESS:
+    return {
+      ...state,
+      expenses: [...state.expenses, ...action.expenses],
       isFetching: false,
     };
   case RECEIVE_API_FAILURE:
