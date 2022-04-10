@@ -10,11 +10,9 @@ class EditingForm extends React.Component {
     this.state = {
       value: 0,
       description: '',
-      currency: '',
-      method: '',
-      tag: '',
-      id: 0,
-      ask: 0,
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
   }
 
@@ -30,12 +28,12 @@ class EditingForm extends React.Component {
   }
 
     handleButton = () => {
-      const { id, ask } = this.props;
-      this.setState({
-        id,
-        ask,
-      });
-      changeExpense(this.state);
+      const { index, expenses, editingExpense } = this.props;
+      const editExpense = { ...expenses[index], ...this.state };
+      const newExpenses = JSON.parse(JSON.stringify(expenses));
+      newExpenses[index] = editExpense;
+      console.log(newExpenses);
+      editingExpense(newExpenses);
     }
 
     render() {
@@ -67,6 +65,7 @@ class EditingForm extends React.Component {
               <select
                 name="currency"
                 id="currency"
+                data-testid="currency-input"
                 onChange={ this.handleInputChange }
               >
                 {
@@ -124,29 +123,30 @@ class EditingForm extends React.Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
-  id: state.wallet.editingInfo[0],
-  ask: state.wallet.editingInfo[1],
+  index: state.wallet.editingInfo[0],
+  expenses: state.wallet.editingInfo[1],
 
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getCurrencies: () => dispatch(fetchCurrencies()),
-  changeExpense: (state) => dispatch(changeExpense(state)),
+  editingExpense: (newExpenses) => dispatch(changeExpense(newExpenses)),
 
 });
 
 EditingForm.propTypes = {
   getCurrencies: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string),
-  id: PropTypes.number,
-  ask: PropTypes.number,
+  index: PropTypes.number,
+  expenses: PropTypes.arrayOf(PropTypes.any),
+  editingExpense: PropTypes.func.isRequired,
 
 };
 
 EditingForm.defaultProps = {
   currencies: [],
-  id: 0,
-  ask: 0,
+  index: 0,
+  expenses: [],
 
 };
 

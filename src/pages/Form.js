@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+/* import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchCurrencies, fetchExchangeRates } from '../actions';
@@ -30,10 +30,9 @@ class Form extends React.Component {
       [target.name]: value });
   }
 
-  handleButton = async () => {
-    const { getExchage } = this.props;
-    await getExchage(this.state);
-
+  handleButton = () => {
+    const { getExchage, expenses } = this.props;
+    getExchage(this.state);
     this.setState((previous) => ({
       id: previous.id + 1,
       value: '',
@@ -77,6 +76,7 @@ class Form extends React.Component {
             <select
               name="currency"
               id="currency"
+              data-testid="currency-input"
               onChange={ this.handleInputChange }
             >
               {
@@ -134,6 +134,7 @@ class Form extends React.Component {
 const mapStateToProps = (state) => ({
 
   currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 
 });
 
@@ -156,3 +157,4 @@ Form.defaultProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
+ */

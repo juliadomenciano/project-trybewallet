@@ -9,7 +9,8 @@ class Expenses extends React.Component {
     handleTotal();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(previousProps) {
+    console.log(previousProps);
     const { handleTotal } = this.props;
     handleTotal();
   }
@@ -43,7 +44,7 @@ class Expenses extends React.Component {
               <th>Editar/Excluir</th>
             </tr>
             {
-              expenses.map((item) => (
+              expenses.map((item, index) => (
                 <tr key={ item.id }>
                   <td>{item.description}</td>
                   <td>{item.tag}</td>
@@ -69,7 +70,7 @@ class Expenses extends React.Component {
                       type="button"
                       data-testid="edit-btn"
                       onClick={
-                        () => { editing(item.id, item.exchangeRates[item.currency].ask); }
+                        () => { editing(index, expenses); }
                       }
                     >
                       Editar
@@ -104,14 +105,14 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   deleteRow: (expensesLeft) => dispatch(deleteExpense(expensesLeft)),
-  editing: (id, ask) => dispatch(editMode(id, ask)),
+  editing: (index, expenses) => dispatch(editMode(index, expenses)),
 });
 
 Expenses.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.any).isRequired,
   deleteRow: PropTypes.func.isRequired,
   handleTotal: PropTypes.func.isRequired,
-  editing: PropTypes.arrayOf(PropTypes.any).isRequired,
+  editing: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Expenses);

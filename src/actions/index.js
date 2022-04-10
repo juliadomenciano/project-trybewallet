@@ -39,17 +39,15 @@ export const deleteExpense = (expensesLeft) => ({
   expensesLeft,
 });
 
-export const editMode = (id, ask) => ({
+export const editMode = (index, expenses) => ({
   type: EDIT_EXPENSE,
-  id,
-  ask,
+  index,
+  expenses,
 });
 
-export const changeExpense = () => ({
-/*   type: CHANGE_EXPENSE,
-  expenses: [{ ...state,
-    exchangeRates }], */
-
+export const changeExpense = (newExpenses) => ({
+  type: CHANGE_EXPENSE,
+  newExpenses,
 });
 
 export const fetchCurrencies = () => async (dispatch) => {

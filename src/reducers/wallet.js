@@ -1,7 +1,7 @@
 import {
   RECEIVE_API_FAILURE, RECEIVE_API_SUCCESS,
   REQUEST_API, RECEIVE_EXCHANGE_SUCCESS,
-  DELETE_EXPENSE, UPDATE_TOTAL, EDIT_EXPENSE,
+  DELETE_EXPENSE, UPDATE_TOTAL, EDIT_EXPENSE, CHANGE_EXPENSE,
 } from '../actions';
 
 const initialState = {
@@ -51,7 +51,13 @@ const wallet = (state = initialState, action) => {
   case EDIT_EXPENSE:
     return {
       ...state,
-      editingInfo: [action.id, action.ask],
+      editingInfo: [action.index, action.expenses],
+    };
+  case CHANGE_EXPENSE:
+    return {
+      ...state,
+      expenses: action.newExpenses,
+      editingInfo: [],
     };
 
   default:
